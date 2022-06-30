@@ -6,29 +6,29 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbodyOfBall;
     [SerializeField] private GameObject playerObject;
-    [SerializeField] public float _powerBall;
-    [SerializeField] public bool _ballIsActive;
+    [SerializeField] public float PowerBall;
+    [SerializeField] public bool BallIsActive;
+    private int _health = 1;
 
     private Vector2 _ballPosition;
 
     private void Start()
     {
-        _ballIsActive = false;
+        BallIsActive = false;
         _ballPosition = transform.position;
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_ballIsActive==false)
+            if (BallIsActive==false)
             {
-                _ballIsActive = true;
-                _rigidbodyOfBall.AddForce(new Vector2(Mathf.Abs(0.005f * _powerBall), 0.055f * _powerBall));
+                BallIsActive = true;
+                _rigidbodyOfBall.AddForce(new Vector2(Mathf.Abs(0.005f * PowerBall), 0.055f * PowerBall));
                 _rigidbodyOfBall.freezeRotation = true;
-
             }
         }
-        if (_ballIsActive == false)
+        if (BallIsActive == false)
         {
             _rigidbodyOfBall.velocity = new Vector2(0, 0);
             _ballPosition.x = playerObject.transform.position.x;
@@ -36,17 +36,17 @@ public class Ball : MonoBehaviour
         }
         if (transform.position.y < -15f)
         {
-            GameObject[] gameObjects;
-            gameObjects = GameObject.FindGameObjectsWithTag("Health Player");
-            Destroy(gameObjects[0]);
+            GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+            player.gameObject.GetComponent<Player>().TakeAwayHealth(_health);
 
-            _ballIsActive = false;
+            //GameObject[] Health;
+            //Health = GameObject.FindGameObjectsWithTag("Health Player");
+            //Destroy(Health[0]);
+
+            BallIsActive = false;
             _ballPosition.x = playerObject.transform.position.x;
             _ballPosition.y = 82f;
             transform.position = _ballPosition;
-           
-            
         }
-        
     }
 }

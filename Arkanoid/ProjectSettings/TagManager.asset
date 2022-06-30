@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Maze
-  - enemyBall
   - Ball
   - Health Player
+  - Block
   layers:
   - Default
   - TransparentFX

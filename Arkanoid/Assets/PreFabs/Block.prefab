@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7907265599498716910}
   m_Layer: 0
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteOfBlock: {fileID: 0}
+  _score: {fileID: 3744673555822300885, guid: 8184b602ddd8a0049a174790c368980b, type: 3}
   _healthOfBlock: 0
+  _points: 0
+  score: 0
+  Block: {fileID: 7907265599498716882}
+  Score: {fileID: 7860246952064638560, guid: ab79be0421ac99f49b620e814d22f6de, type: 3}
   _numberOfHits: 0
 --- !u!61 &7907265599498716910
 BoxCollider2D:
