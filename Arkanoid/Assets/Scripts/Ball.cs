@@ -39,10 +39,6 @@ public class Ball : MonoBehaviour
             GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
             player.gameObject.GetComponent<Player>().TakeAwayHealth(_health);
 
-            //GameObject[] Health;
-            //Health = GameObject.FindGameObjectsWithTag("Health Player");
-            //Destroy(Health[0]);
-
             BallIsActive = false;
             _ballPosition.x = playerObject.transform.position.x;
             _ballPosition.y = 82f;

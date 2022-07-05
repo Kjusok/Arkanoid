@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    [SerializeField] private float _playerSpeed;
+    [SerializeField] public float PlayerSpeed;
     [SerializeField] private float _rightBorder;
     [SerializeField] private float _leftBorder;
     [SerializeField] private BoxCollider2D _platform;
@@ -20,9 +20,11 @@ public class Platform : MonoBehaviour
     }
     private void Update()
     {
-        _playerPosition.x += Input.GetAxis("Horizontal") * _playerSpeed;
-        transform.position = _playerPosition;
-
+        if (Player.GameIsPaused == false)
+        {
+            _playerPosition.x += Input.GetAxis("Horizontal") * PlayerSpeed;
+            transform.position = _playerPosition;
+        }
         if (_playerPosition.x < _leftBorder)
         {
             transform.position = new Vector3(_leftBorder, _playerPosition.y, _playerPosition.z);

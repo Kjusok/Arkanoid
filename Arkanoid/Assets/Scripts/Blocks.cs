@@ -13,7 +13,6 @@ public class Blocks : MonoBehaviour
     {
         _spriteOfBlock = GetComponent<SpriteRenderer>();
     }
-
     void Update()
     {
         if (_healthOfBlock == 1)
