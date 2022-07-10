@@ -7,18 +7,20 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField] private Text _scoreText;
+
     private int _score;
-    private int _healthOfPlayer;
+
+    public static int HealthOfPlayer;
+    public static GameObject[] Health;
+    public static bool GameIsPaused = false;
 
     public Platform SpeedOfPlatform;
     public GameObject PauseMenu;
-    public static bool GameIsPaused = false;
-
 
     void Start()
     {
         _score = 0;
-        _healthOfPlayer = 5;
+        HealthOfPlayer = 3;
     }
     public void AddPoints(int _points)
     {
@@ -26,19 +28,27 @@ public class Player : MonoBehaviour
         string scoreTextWithZero = string.Format("{0:D9}", _score);
         _scoreText.text = scoreTextWithZero;
     }
-    public void TakeAwayHealth(int _health)
+    public void TakeAwayHealth(int _healthThatIsLose)
     {
-        _healthOfPlayer -= _health;
-        if (_healthOfPlayer >= 0)
+        HealthOfPlayer -= _healthThatIsLose;
+        if (HealthOfPlayer >= 0)
         {
-            GameObject[] Health;
             Health = GameObject.FindGameObjectsWithTag("Health Player");
-            Destroy(Health[0]);
+            Destroy(Health[Health.Length-1]);
         }
     }
+    public void HealthUp(int _healthThatIsTaken)
+    {
+        if (HealthOfPlayer < 5)
+        {
+            HealthOfPlayer += _healthThatIsTaken;
+        }
+    }
+   
+    
     public void DestroyBall()
     {
-        if (_healthOfPlayer == 0)
+        if (HealthOfPlayer == 0)
         {
             GameObject Balls;
             Balls = GameObject.FindGameObjectWithTag("Ball");

@@ -8,6 +8,9 @@ public class Blocks : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteOfBlock;
     [SerializeField] private int _healthOfBlock;
     [SerializeField] private int _points;
+    [SerializeField] private GameObject[] _items;
+
+    public Vector2 _positionOfItems;
 
     void Start()
     {
@@ -41,8 +44,10 @@ public class Blocks : MonoBehaviour
             {
                 GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
                 player.gameObject.GetComponent<Player>().AddPoints(_points);
-               
+                _positionOfItems = this.gameObject.transform.position;
                 Destroy(this.gameObject);
+
+                Instantiate(_items[Random.Range(0,3)], _positionOfItems, Quaternion.identity);
             }
         }
     }

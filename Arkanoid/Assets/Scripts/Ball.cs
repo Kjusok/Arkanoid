@@ -6,10 +6,10 @@ public class Ball : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbodyOfBall;
     [SerializeField] private GameObject playerObject;
-    [SerializeField] public float PowerBall;
-    [SerializeField] public bool BallIsActive;
-    private int _health = 1;
+    public float PowerBall;
+    public bool BallIsActive;
 
+    private int _healthThatIsLose = 1;
     private Vector2 _ballPosition;
 
     private void Start()
@@ -37,7 +37,7 @@ public class Ball : MonoBehaviour
         if (transform.position.y < -15f)
         {
             GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-            player.gameObject.GetComponent<Player>().TakeAwayHealth(_health);
+            player.gameObject.GetComponent<Player>().TakeAwayHealth(_healthThatIsLose);
 
             BallIsActive = false;
             _ballPosition.x = playerObject.transform.position.x;

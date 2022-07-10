@@ -8,6 +8,10 @@ TagManager:
   - Ball
   - Health Player
   - Block
+  - Item
+  - Live
+  - Minus
+  - Plus
   layers:
   - Default
   - TransparentFX
