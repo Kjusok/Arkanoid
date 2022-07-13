@@ -44,8 +44,6 @@ public class Player : MonoBehaviour
             HealthOfPlayer += _healthThatIsTaken;
         }
     }
-   
-    
     public void DestroyBall()
     {
         if (HealthOfPlayer == 0)

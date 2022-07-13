@@ -47,7 +47,7 @@ public class Blocks : MonoBehaviour
                 _positionOfItems = this.gameObject.transform.position;
                 Destroy(this.gameObject);
 
-                Instantiate(_items[Random.Range(0,3)], _positionOfItems, Quaternion.identity);
+                Instantiate(_items[Random.Range(0,6)], _positionOfItems, Quaternion.identity);
             }
         }
     }

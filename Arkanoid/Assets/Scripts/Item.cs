@@ -7,6 +7,8 @@ public class Item : MonoBehaviour
     [SerializeField] private GameObject[] _createHearts;
     [SerializeField] private int _points;
     [SerializeField] private int _size;
+    [SerializeField] private int _speedOfBall;
+    [SerializeField] private int _time;
 
     private int _healthThatIsTaken = 1;
     private Vector2 _positionOfItem;
@@ -66,24 +68,46 @@ public class Item : MonoBehaviour
             }
         }
     }
+    private void TakePlatformResizing()
+    {
+        if (this.gameObject.tag == "Plus" || this.gameObject.tag == "Minus")
+        {
+            Destroy(this.gameObject);
+
+            GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+            player.gameObject.GetComponent<Platform>().TakeChangePlatformSize(_size);
+        }
+    }
+    private void TakeChangeBallSpeed()
+    {
+        if (this.gameObject.tag == "SpeedUp")
+        {
+            Destroy(this.gameObject);
+
+            GameObject ball = GameObject.FindGameObjectsWithTag("Ball")[0];
+            ball.gameObject.GetComponent<Ball>().TakeIncreaseSpeedOfBall(_speedOfBall);
+        }
+        if (this.gameObject.tag == "SpeedDown")
+        {
+            Destroy(this.gameObject);
+
+            GameObject ball = GameObject.FindGameObjectsWithTag("Ball")[0];
+            ball.gameObject.GetComponent<Ball>().TakeDecreaseSpeedOfBall(_speedOfBall);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
         {
             TakeLive();
-            if (this.gameObject.tag == "Plus")
+            TakePlatformResizing();
+            TakeChangeBallSpeed();
+            if (this.gameObject.tag == "Shield")
             {
                 Destroy(this.gameObject);
 
-                GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-                player.gameObject.GetComponent<Platform>().TakeChangePlatformSize(_size);
-            }
-            if (this.gameObject.tag == "Minus")
-            {
-                Destroy(this.gameObject);
-
-                GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-                player.gameObject.GetComponent<Platform>().TakeChangePlatformSize(_size);
+                GameObject fieldOfGame = GameObject.FindGameObjectsWithTag("Game")[0];
+                fieldOfGame.gameObject.GetComponent<FieldOfGame>().TakeTimeForShieldFloor(_time);
             }
         }
     }
