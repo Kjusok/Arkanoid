@@ -48,10 +48,12 @@ public class Player : MonoBehaviour
     {
         if (HealthOfPlayer == 0)
         {
-            GameObject Balls;
-            Balls = GameObject.FindGameObjectWithTag("Ball");
-            Destroy(Balls);
-
+            GameObject [] Balls;
+            Balls = GameObject.FindGameObjectsWithTag("Ball");
+            foreach(GameObject i in Balls)
+            {
+                Destroy(i);
+            }
             SpeedOfPlatform.PlayerSpeed = 0;
 
             PauseMenu.SetActive(true);

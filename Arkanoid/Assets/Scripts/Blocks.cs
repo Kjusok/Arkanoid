@@ -10,7 +10,7 @@ public class Blocks : MonoBehaviour
     [SerializeField] private int _points;
     [SerializeField] private GameObject[] _items;
 
-    public Vector2 _positionOfItems;
+    private Vector2 _positionOfItems;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class Blocks : MonoBehaviour
     {
         if (_healthOfBlock == 1)
         {
-            Color newColor = new Color(1,1,1);
+            Color newColor = new Color(1, 1, 1);
             _spriteOfBlock.color = newColor;
         }
         if (_healthOfBlock == 2)
@@ -34,21 +34,32 @@ public class Blocks : MonoBehaviour
             _spriteOfBlock.color = newColor;
         }
     }
+    private void DesttroyBlockAndCreateItems()
+    {
+        _healthOfBlock--;
+
+        if (_healthOfBlock == 0)
+        {
+            GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+            player.gameObject.GetComponent<Player>().AddPoints(_points);
+            _positionOfItems = this.gameObject.transform.position;
+            Destroy(this.gameObject);
+
+            Instantiate(_items[Random.Range(0, 9)], _positionOfItems, Quaternion.identity);
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ball")
         {
-            _healthOfBlock--;
-
-            if (_healthOfBlock == 0)
-            {
-                GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
-                player.gameObject.GetComponent<Player>().AddPoints(_points);
-                _positionOfItems = this.gameObject.transform.position;
-                Destroy(this.gameObject);
-
-                Instantiate(_items[Random.Range(0,6)], _positionOfItems, Quaternion.identity);
-            }
+            DesttroyBlockAndCreateItems();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Bullet")
+        {
+            DesttroyBlockAndCreateItems();
         }
     }
 }

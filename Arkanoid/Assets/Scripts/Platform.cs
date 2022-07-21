@@ -6,75 +6,118 @@ public class Platform : MonoBehaviour
 {
     [SerializeField] private float _rightBorder;
     [SerializeField] private float _leftBorder;
-    [SerializeField] private int _sizeOfPlatform;
-
+    [SerializeField] private GameObject _stickyPlatform;
+    [SerializeField] private GameObject _rightGunsOnPlatform;
+    [SerializeField] private GameObject _leftGunsOnPlatform;
+    private bool _switch = true;
     private Vector3 _playerPosition;
-    private double _lengthOfAppliedForce = 15.71;
 
+    public double RengthOfAppliedForce = 15.71;
     public float PlayerSpeed;
+    public float TimeForStickyPlatform;
+    public float TimeForActivGuns;
     public Vector2 PlatformPlayer;
-
-    public Ball PowerOfBall;
-    public Ball ActiveBall;
+    public float PlatformCentr;
+    public int SizeOfPlatform;
 
     private void Start()
     {
-        _sizeOfPlatform = 0;
+        SizeOfPlatform = 0;
         _playerPosition = transform.position;
+    }
+    public void TakeTimeForStickyPlatform(int _time)
+    {
+        TimeForStickyPlatform += _time;
+        if (TimeForStickyPlatform > 0)
+        {
+            _stickyPlatform.SetActive(true);
+        }
+    }
+    public void TakeTimeForGuns(int _time)
+    {
+        TimeForActivGuns += _time;
+        if (TimeForActivGuns > 0)
+        {
+            _rightGunsOnPlatform.SetActive(true);
+            _leftGunsOnPlatform.SetActive(true);
+        }
+    }
+    private void OffGunsOnPlatform()
+    {
+        if (TimeForActivGuns <= 0)
+        {
+            _rightGunsOnPlatform.SetActive(false);
+            _leftGunsOnPlatform.SetActive(false);
+        }
+        if (TimeForActivGuns > 0)
+        {
+            TimeForActivGuns -= Time.deltaTime;
+        }
+    }
+    private void OffStickyPlatform()
+    {
+        if (TimeForStickyPlatform <= 0)
+        {
+            _stickyPlatform.SetActive(false);
+        }
+        if (TimeForStickyPlatform > 0)
+        {
+            TimeForStickyPlatform -= Time.deltaTime;
+        }
     }
     public void TakeChangePlatformSize(int _size)
     {
-        _sizeOfPlatform += _size;
+        SizeOfPlatform += _size;
     }
     public void CheckSizeOfPlatform()
     {
-        if (_sizeOfPlatform > 3)
+        if (SizeOfPlatform > 3)
         {
-            _sizeOfPlatform = 3;
+            SizeOfPlatform = 3;
         }
-        if (_sizeOfPlatform < -2)
+        if (SizeOfPlatform < -2)
         {
-            _sizeOfPlatform = -2;
+            SizeOfPlatform = -2;
         }
     }
     public void ChangePlatformSize()
     {
-        if (_sizeOfPlatform == -2)
+        if (SizeOfPlatform == -2)
         {
             PlatformPlayer = new Vector2(60, 100);
             transform.localScale = PlatformPlayer;
             _rightBorder = 1778;
             _leftBorder = 142;
         }
-        if (_sizeOfPlatform == -1)
+        if (SizeOfPlatform == -1)
         {
             PlatformPlayer = new Vector2(80, 100);
             transform.localScale = PlatformPlayer;
             _rightBorder = 1755;
             _leftBorder = 165;
         }
-        if (_sizeOfPlatform == 0)
+        if (SizeOfPlatform == 0)
         {
             PlatformPlayer = new Vector2(100, 100);
             transform.localScale = PlatformPlayer;
             _rightBorder = 1730;
             _leftBorder = 190;
         }
-        if (_sizeOfPlatform == 1)
+        if (SizeOfPlatform == 1)
         {
             PlatformPlayer = new Vector2(130, 100);
             transform.localScale = PlatformPlayer;
             _rightBorder = 1695;
             _leftBorder = 225;
         }
-        if (_sizeOfPlatform == 2)
+        if (SizeOfPlatform == 2)
         {
             PlatformPlayer = new Vector2(160, 100);
             transform.localScale = PlatformPlayer;
             _rightBorder = 1658;
             _leftBorder = 262;
         }
-        if (_sizeOfPlatform == 3)
+        if (SizeOfPlatform == 3)
         {
             PlatformPlayer = new Vector2(180, 100);
             transform.localScale = PlatformPlayer;
@@ -84,29 +127,29 @@ public class Platform : MonoBehaviour
     }
     public void ChangeForceDependingOnLengthOfPlatform()
     {
-        if (_sizeOfPlatform == -2)
+        if (SizeOfPlatform == -2)
         {
-            _lengthOfAppliedForce = 15.71 - 15.71 * 0.4;
+            RengthOfAppliedForce = 15.71 - 15.71 * 0.4;
         }
-        if (_sizeOfPlatform == -1)
+        if (SizeOfPlatform == -1)
         {
-            _lengthOfAppliedForce = 15.71 - 15.71 * 0.2;
+            RengthOfAppliedForce = 15.71 - 15.71 * 0.2;
         }
-        if (_sizeOfPlatform == 0)
+        if (SizeOfPlatform == 0)
         {
-            _lengthOfAppliedForce = 15.71;
+            RengthOfAppliedForce = 15.71;
         }
-        if (_sizeOfPlatform == 1)
+        if (SizeOfPlatform == 1)
         {
-            _lengthOfAppliedForce = 15.71 + 15.71 * 0.3;
+            RengthOfAppliedForce = 15.71 + 15.71 * 0.3;
         }
-        if (_sizeOfPlatform == 2)
+        if (SizeOfPlatform == 2)
         {
-            _lengthOfAppliedForce = 15.71 + 15.71 * 0.6;
+            RengthOfAppliedForce = 15.71 + 15.71 * 0.6;
         }
-        if (_sizeOfPlatform == 3)
+        if (SizeOfPlatform == 3)
         {
-            _lengthOfAppliedForce = 15.71 + 15.71 * 0.8;
+            RengthOfAppliedForce = 15.71 + 15.71 * 0.8;
         }
     }
     private void Update()
@@ -114,6 +157,8 @@ public class Platform : MonoBehaviour
         CheckSizeOfPlatform();
         ChangePlatformSize();
         ChangeForceDependingOnLengthOfPlatform();
+        OffStickyPlatform();
+        OffGunsOnPlatform();
         if (Player.GameIsPaused == false)
         {
             _playerPosition.x += Input.GetAxis("Horizontal") * PlayerSpeed;
@@ -132,86 +177,11 @@ public class Platform : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D contact)
     {
-        if(contact.gameObject.tag == "Ball" && ActiveBall.BallIsActive)
+        if (TimeForStickyPlatform > 0)
         {
-            Rigidbody2D ballRb = contact.gameObject.GetComponent<Rigidbody2D>();
-            Vector3 hitPoint = contact.contacts[0].point;
-            Vector3 platformCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
-
-            ballRb.velocity = Vector2.zero;
-
-            float difference = platformCenter.x - hitPoint.x;
-
-            if (difference > 0 && difference < _lengthOfAppliedForce)
+            if (contact.gameObject.tag == "Ball")
             {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(0.005f * PowerOfBall.PowerBall)), 0.055f * PowerOfBall.PowerBall));
-               // Debug.Log("1-" + difference);
-            }
-            if (difference > _lengthOfAppliedForce && difference < _lengthOfAppliedForce * 2)
-            {
-                ballRb.AddForce(new Vector2(-Mathf.Abs(0.01f * PowerOfBall.PowerBall), 0.05f * PowerOfBall.PowerBall));
-               // Debug.Log("2-" + difference);
-            }
-            if (difference > _lengthOfAppliedForce * 2 && difference < _lengthOfAppliedForce*3)
-            {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(0.02f * PowerOfBall.PowerBall)), 0.04f * PowerOfBall.PowerBall));
-               // Debug.Log("3-" + difference);
-            }
-            if (difference > _lengthOfAppliedForce * 3 && difference < _lengthOfAppliedForce * 4)
-            {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(0.03f * PowerOfBall.PowerBall)), 0.03f * PowerOfBall.PowerBall));
-               // Debug.Log("4-" + difference);
-            }
-            if (difference > _lengthOfAppliedForce * 4 && difference < _lengthOfAppliedForce * 5)
-            {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(0.04f * PowerOfBall.PowerBall)), 0.02f * PowerOfBall.PowerBall));
-               // Debug.Log("5-" + difference);
-            }
-            if (difference > _lengthOfAppliedForce * 5 && difference < _lengthOfAppliedForce * 6)
-            {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(0.05f * PowerOfBall.PowerBall)), 0.01f * PowerOfBall.PowerBall));
-                //Debug.Log("6-" + difference);
-            }
-            if (difference > _lengthOfAppliedForce * 6 && difference < _lengthOfAppliedForce * 7.1)
-            {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(0.055f * PowerOfBall.PowerBall)), 0.005f * PowerOfBall.PowerBall));
-               // Debug.Log("7-" + difference);
-            }
-            //Reverse
-            if (difference < 0 && difference > -_lengthOfAppliedForce)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.005f * PowerOfBall.PowerBall), 0.055f * PowerOfBall.PowerBall));
-               // Debug.Log("+1-" + difference);
-            }
-            if (difference < -_lengthOfAppliedForce && difference > -_lengthOfAppliedForce * 2)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.01f * PowerOfBall.PowerBall), 0.05f * PowerOfBall.PowerBall));
-               // Debug.Log("+2-" + difference);
-            }
-            if (difference < -_lengthOfAppliedForce * 2 && difference > -_lengthOfAppliedForce * 3)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.02f * PowerOfBall.PowerBall), 0.04f * PowerOfBall.PowerBall));
-               // Debug.Log("+3-" + difference);
-            }
-            if (difference < -_lengthOfAppliedForce * 3 && difference > -_lengthOfAppliedForce * 4)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.03f * PowerOfBall.PowerBall), 0.03f * PowerOfBall.PowerBall));
-               // Debug.Log("+4-" + difference);
-            }
-            if (difference < -_lengthOfAppliedForce * 4 && difference > -_lengthOfAppliedForce * 5)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.04f * PowerOfBall.PowerBall), 0.02f * PowerOfBall.PowerBall));
-               // Debug.Log("+5-" + difference);
-            }
-            if (difference < -_lengthOfAppliedForce * 5 && difference > -_lengthOfAppliedForce * 6)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.05f * PowerOfBall.PowerBall), 0.01f * PowerOfBall.PowerBall));
-               // Debug.Log("+6-" + difference);
-            }
-            if (difference < -_lengthOfAppliedForce * 6 && difference > -_lengthOfAppliedForce * 7.1)
-            {
-                ballRb.AddForce(new Vector2(Mathf.Abs(0.055f * PowerOfBall.PowerBall), 0.005f * PowerOfBall.PowerBall));
-                //Debug.Log("+7-" + difference);
+                contact.gameObject.GetComponent<Ball>().OnStickyPlatform(_switch); ;
             }
         }
     }

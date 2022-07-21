@@ -106,6 +106,9 @@ MonoBehaviour:
   - {fileID: 5548579824229570339, guid: e081c141e73b7d348943d2b6b5e3703f, type: 3}
   - {fileID: 4258580100441710814, guid: 999ca6a0696912b46bdb93a600cc7b99, type: 3}
   - {fileID: 1700430108526739847, guid: 4c1c7dec946a55b4d84db3cea1b1b2a0, type: 3}
+  - {fileID: 7372049305031949632, guid: f0f2db6bce2a5c84aa14cddcb92cccdb, type: 3}
+  - {fileID: 79688078454312783, guid: 73b9b1d5ca831c9419c5d233df829199, type: 3}
+  - {fileID: 6840856137370384529, guid: 70d89b04e0d60bf41898be44bf1f59b3, type: 3}
   _positionOfItems: {x: 0, y: 0}
 --- !u!61 &7907265599498716910
 BoxCollider2D:

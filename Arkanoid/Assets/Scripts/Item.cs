@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
     [SerializeField] private int _size;
     [SerializeField] private int _speedOfBall;
     [SerializeField] private int _time;
+    [SerializeField] private bool _switch;
 
     private int _healthThatIsTaken = 1;
     private Vector2 _positionOfItem;
@@ -84,15 +85,59 @@ public class Item : MonoBehaviour
         {
             Destroy(this.gameObject);
 
-            GameObject ball = GameObject.FindGameObjectsWithTag("Ball")[0];
-            ball.gameObject.GetComponent<Ball>().TakeIncreaseSpeedOfBall(_speedOfBall);
+            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+            foreach(GameObject ball in balls)
+            {
+                ball.gameObject.GetComponent<Ball>().TakeIncreaseSpeedOfBall(_speedOfBall);
+            }
         }
         if (this.gameObject.tag == "SpeedDown")
         {
             Destroy(this.gameObject);
 
-            GameObject ball = GameObject.FindGameObjectsWithTag("Ball")[0];
-            ball.gameObject.GetComponent<Ball>().TakeDecreaseSpeedOfBall(_speedOfBall);
+            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+            foreach (GameObject ball in balls)
+            {
+                ball.gameObject.GetComponent<Ball>().TakeDecreaseSpeedOfBall(_speedOfBall);
+            }
+        }
+    }
+    private void TakeShieldFloorForTime()
+    {
+        if (this.gameObject.tag == "Shield")
+        {
+            Destroy(this.gameObject);
+
+            GameObject fieldOfGame = GameObject.FindGameObjectsWithTag("Game")[0];
+            fieldOfGame.gameObject.GetComponent<FieldOfGame>().TakeTimeForShieldFloor(_time);
+        }
+    }
+    private void TakeVelcroForPlatform()
+    {
+        if (this.gameObject.tag == "Velcro")
+        {
+            Destroy(this.gameObject);
+
+            GameObject platform = GameObject.FindGameObjectsWithTag("Player")[0];
+            platform.gameObject.GetComponent<Platform>().TakeTimeForStickyPlatform(_time);
+        }
+    }
+    private void TakeGuns()
+    {
+        if (this.gameObject.tag == "Guns")
+        {
+            Destroy(this.gameObject);
+            GameObject platform = GameObject.FindGameObjectsWithTag("Player")[0];
+            platform.gameObject.GetComponent<Platform>().TakeTimeForGuns(_time);
+        }
+    }
+    private void TakeDublication()
+    {
+        if (this.gameObject.tag == "Duplication")
+        {
+            Destroy(this.gameObject);
+            GameObject platform = GameObject.FindGameObjectsWithTag("Ball")[0];
+            platform.gameObject.GetComponent<Ball>().TakeMultyBall(_switch);
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -102,13 +147,10 @@ public class Item : MonoBehaviour
             TakeLive();
             TakePlatformResizing();
             TakeChangeBallSpeed();
-            if (this.gameObject.tag == "Shield")
-            {
-                Destroy(this.gameObject);
-
-                GameObject fieldOfGame = GameObject.FindGameObjectsWithTag("Game")[0];
-                fieldOfGame.gameObject.GetComponent<FieldOfGame>().TakeTimeForShieldFloor(_time);
-            }
+            TakeShieldFloorForTime();
+            TakeVelcroForPlatform();
+            TakeGuns();
+            TakeDublication();
         }
     }
 }

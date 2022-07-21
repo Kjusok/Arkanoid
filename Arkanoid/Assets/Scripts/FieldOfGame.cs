@@ -6,46 +6,46 @@ public class FieldOfGame : MonoBehaviour
 {
     [SerializeField] private GameObject _shieldFloor;
     [SerializeField] private SpriteRenderer _spriteOfShieldFloor;
-    public float _timeForTurnOnShieldFloor;
+    public float TimeForTurnOnShieldFloor;
 
     void Start()
     {
-        _timeForTurnOnShieldFloor = 0;
+        TimeForTurnOnShieldFloor = 0;
     }
     public void TakeTimeForShieldFloor(int _time)
     {
-        _timeForTurnOnShieldFloor += _time;
-        if (_timeForTurnOnShieldFloor > 0)
+        TimeForTurnOnShieldFloor += _time;
+        if (TimeForTurnOnShieldFloor > 0)
         {
             _shieldFloor.SetActive(true);
         }
     }
     void Update()
     {
-        if (_timeForTurnOnShieldFloor <= 0)
+        if (TimeForTurnOnShieldFloor <= 0)
         {
             _shieldFloor.SetActive(false);
         }
-        if (_timeForTurnOnShieldFloor > 0)
+        if (TimeForTurnOnShieldFloor > 0)
         {
-            _timeForTurnOnShieldFloor -= Time.deltaTime;
+            TimeForTurnOnShieldFloor -= Time.deltaTime;
         }
-        if (_timeForTurnOnShieldFloor < 4 && _timeForTurnOnShieldFloor > 3)
+        if (TimeForTurnOnShieldFloor < 4 && TimeForTurnOnShieldFloor > 3)
         {
             Color NewColor = new Color(1,1,1,0);
             _spriteOfShieldFloor.color = NewColor;
         }
-        if (_timeForTurnOnShieldFloor < 3 && _timeForTurnOnShieldFloor > 2)
+        if (TimeForTurnOnShieldFloor < 3 && TimeForTurnOnShieldFloor > 2)
         {
             Color NewColor = new Color(1, 1, 1, 1);
             _spriteOfShieldFloor.color = NewColor;
         }
-        if (_timeForTurnOnShieldFloor < 2 && _timeForTurnOnShieldFloor > 1)
+        if (TimeForTurnOnShieldFloor < 2 && TimeForTurnOnShieldFloor > 1)
         {
             Color NewColor = new Color(1, 1, 1, 0);
             _spriteOfShieldFloor.color = NewColor;
         }
-        if (_timeForTurnOnShieldFloor < 1 && _timeForTurnOnShieldFloor > 0)
+        if (TimeForTurnOnShieldFloor < 1 && TimeForTurnOnShieldFloor > 0)
         {
             Color NewColor = new Color(1, 1, 1, 1);
             _spriteOfShieldFloor.color = NewColor;
