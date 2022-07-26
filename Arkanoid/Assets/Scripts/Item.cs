@@ -140,6 +140,18 @@ public class Item : MonoBehaviour
             platform.gameObject.GetComponent<Ball>().TakeMultyBall(_switch);
         }
     }
+    private void TakeSuperBall()
+    {
+        if (this.gameObject.tag == "Super Ball")
+        {
+            Destroy(this.gameObject);
+            GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
+            foreach (GameObject ball in balls)
+            {
+                ball.gameObject.GetComponent<Ball>().TakeTimeForSuperBall(_time);
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
@@ -151,6 +163,7 @@ public class Item : MonoBehaviour
             TakeVelcroForPlatform();
             TakeGuns();
             TakeDublication();
+            TakeSuperBall();
         }
     }
 }

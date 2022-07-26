@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer _spriteOfBall;
     [SerializeField] private Rigidbody2D _rigidbodyOfBall;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject _ball;
     [SerializeField] private Vector2 _ballPosition;
+    [SerializeField] private bool _switch;
 
     public Platform AppliedForce;
     public GameObject[] Balls;
     public int PowerBall;
     public bool BallIsActive;
     public bool BallIsStuck;
+    public float TimeForSuperBall;
 
     private readonly int _healthThatIsLose = 1;
     private float _positionOfHitBall;
     private float _platformCentr;
     private void Start()
     {
-          BallIsStuck = false;
+        BallIsStuck = false;
         if (Balls.Length <1)
         {
             BallIsActive = false;
@@ -91,7 +94,6 @@ public class Ball : MonoBehaviour
     public void TakeDecreaseSpeedOfBall(int _speedOfBall)
     {
         PowerBall -= _speedOfBall;
-        Debug.Log(PowerBall);
         if (PowerBall == 60)
         {
             _rigidbodyOfBall.velocity = new Vector2(_rigidbodyOfBall.velocity.x * 0.75f, _rigidbodyOfBall.velocity.y * 0.75f);
@@ -196,9 +198,45 @@ public class Ball : MonoBehaviour
             BallIsStuck = true;
         }
     }
+
+    public void TakeTimeForSuperBall(int _time)
+    {
+        TimeForSuperBall += _time;
+        if (TimeForSuperBall > 0)
+        {
+            Color newColor = new Color(1, 0.27f, 0);
+            _spriteOfBall.color = newColor;
+
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
+            foreach (GameObject block in blocks)
+            {
+                var boxColOfBlock = block.GetComponent<BoxCollider2D>();
+                boxColOfBlock.isTrigger = true;
+            }
+        }
+    }
+    private void OffSuperBall()
+    {
+        if (TimeForSuperBall < 0)
+        {
+            Color newColor = new Color(1, 1, 1);
+            _spriteOfBall.color = newColor;
+
+            GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
+            foreach (GameObject block in blocks)
+            {
+                var boxColOfBlock = block.GetComponent<BoxCollider2D>();
+                boxColOfBlock.isTrigger = false;
+            }
+        }
+        if (TimeForSuperBall > 0)
+        {
+            TimeForSuperBall -= Time.deltaTime;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D contact)
     {
-        if(contact.gameObject.tag == "Player")
+        if (contact.gameObject.tag == "Player")
         {
             Vector3 hitPoint = contact.contacts[0].point;
             Vector3 platformCenter = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y);
@@ -212,6 +250,7 @@ public class Ball : MonoBehaviour
     }
     private void Update()
     {
+        OffSuperBall();
         CheckMaxOrMinSpeedOfBall();
         if (Input.GetKeyDown(KeyCode.Space))
         {

@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688b739bb031f954383eb063c366b7de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteOfBlock: {fileID: 0}
+  _spriteOfBlock: {fileID: 7907265599498716880}
   _healthOfBlock: 0
   _points: 0
   _items:
@@ -109,7 +109,8 @@ MonoBehaviour:
   - {fileID: 7372049305031949632, guid: f0f2db6bce2a5c84aa14cddcb92cccdb, type: 3}
   - {fileID: 79688078454312783, guid: 73b9b1d5ca831c9419c5d233df829199, type: 3}
   - {fileID: 6840856137370384529, guid: 70d89b04e0d60bf41898be44bf1f59b3, type: 3}
-  _positionOfItems: {x: 0, y: 0}
+  - {fileID: 4535854729523848991, guid: 5e3ab11027bf94d4e8b93ebba02ae7fb, type: 3}
+  _boxColliderOfBlock: {fileID: 7907265599498716910}
 --- !u!61 &7907265599498716910
 BoxCollider2D:
   m_ObjectHideFlags: 0

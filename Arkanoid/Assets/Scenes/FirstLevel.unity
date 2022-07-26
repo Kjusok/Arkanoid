@@ -454,14 +454,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f150677192e24b82f446bcdf06698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 1254102385}
+  _playerObject: {fileID: 1254102385}
   _rightBorderForGun: 1830
   _leftBorderForGun: 290
-  LeftGun: 0
-  RightGun: 1
+  _leftGun: 0
+  _rightGun: 1
   _bullet:
   - {fileID: 8970012403993058932, guid: 6326e3530275078499aa85f6dad9b19c, type: 3}
-  _positionOfBullet: {x: 0, y: 0}
   PlayerSpeed: {fileID: 1254102389}
   SizeOfPlatform: {fileID: 1254102389}
 --- !u!1001 &109680560
@@ -5249,7 +5248,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 528ce0caff2f4814e8bb6748ea752fc7, type: 3}
-  m_Color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5322,15 +5321,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d873e38305a2454f8ea8223ebd90161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteOfBall: {fileID: 726378806}
   _rigidbodyOfBall: {fileID: 726378809}
   playerObject: {fileID: 1254102385}
   _ball: {fileID: 726378805}
+  _ballPosition: {x: 0, y: 0}
+  _switch: 1
+  AppliedForce: {fileID: 1254102389}
   Balls: []
   PowerBall: 100
   BallIsActive: 0
   BallIsStuck: 0
-  _ballPosition: {x: 0, y: 0}
-  AppliedForce: {fileID: 1254102389}
+  TimeForSuperBall: 0
 --- !u!1001 &728132633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8520,14 +8522,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f150677192e24b82f446bcdf06698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 1254102385}
+  _playerObject: {fileID: 1254102385}
   _rightBorderForGun: 1630
   _leftBorderForGun: 90
-  LeftGun: 1
-  RightGun: 0
+  _leftGun: 1
+  _rightGun: 0
   _bullet:
   - {fileID: 8970012403993058932, guid: 6326e3530275078499aa85f6dad9b19c, type: 3}
-  _positionOfBullet: {x: 0, y: 0}
   PlayerSpeed: {fileID: 1254102389}
   SizeOfPlatform: {fileID: 1254102389}
 --- !u!1001 &1194768503
@@ -9103,16 +9104,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rightBorder: 1730
   _leftBorder: 190
-  SizeOfPlatform: 0
   _stickyPlatform: {fileID: 280519818}
   _rightGunsOnPlatform: {fileID: 108683068}
   _leftGunsOnPlatform: {fileID: 1192136474}
   RengthOfAppliedForce: 15.71
-  PlayerSpeed: 20
+  PlayerSpeed: 10
   TimeForStickyPlatform: 0
   TimeForActivGuns: 0
   PlatformPlayer: {x: 0, y: 0}
   PlatformCentr: 0
+  SizeOfPlatform: 0
 --- !u!114 &1254102390
 MonoBehaviour:
   m_ObjectHideFlags: 0

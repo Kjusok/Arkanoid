@@ -45,7 +45,10 @@ public class Blocks : MonoBehaviour
             _positionOfItems = this.gameObject.transform.position;
             Destroy(this.gameObject);
 
-            Instantiate(_items[Random.Range(0, 9)], _positionOfItems, Quaternion.identity);
+            if (Random.Range(0, 100) < 20)
+            {
+                Instantiate(_items[Random.Range(0, 10)], _positionOfItems, Quaternion.identity);
+            }
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -60,6 +63,18 @@ public class Blocks : MonoBehaviour
         if (collider.gameObject.tag == "Bullet")
         {
             DesttroyBlockAndCreateItems();
+        }
+        if (collider.gameObject.tag == "Ball")
+        {
+            GameObject player = GameObject.FindGameObjectsWithTag("Player")[0];
+            player.gameObject.GetComponent<Player>().AddPoints(_points);
+            _positionOfItems = this.gameObject.transform.position;
+            Destroy(this.gameObject);
+
+            if (Random.Range(0, 100) < 20)
+            {
+                Instantiate(_items[Random.Range(0, 10)], _positionOfItems, Quaternion.identity);
+            }
         }
     }
 }

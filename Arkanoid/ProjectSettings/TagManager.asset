@@ -21,6 +21,7 @@ TagManager:
   - Top Wall
   - Bullet
   - Duplication
+  - Super Ball
   layers:
   - Default
   - TransparentFX
